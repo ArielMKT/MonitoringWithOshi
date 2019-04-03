@@ -21,6 +21,8 @@ public class Oshi {
 
         new Menu().menu();
 
+        System.out.println(Init.os);
+
 //        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "INFO");
 //        System.setProperty(org.slf4j.impl.SimpleLogger.LOG_FILE_KEY, "System.err");
 //        Logger LOG = LoggerFactory.getLogger(Oshi.class);
