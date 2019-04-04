@@ -1,27 +1,20 @@
-import menu.Init;
-import menu.Menu;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import oshi.SystemInfo;
+import information.Process;
 import oshi.hardware.*;
-import oshi.hardware.CentralProcessor.TickType;
 
 import oshi.software.os.*;
-import oshi.software.os.OperatingSystem.ProcessSort;
 import oshi.util.FormatUtil;
-import oshi.util.Util;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class Oshi {
 
     public static void main(String[] args){
 
-        new Menu().menu();
+        SystemInformation systemInformation = new SystemInformation();
 
-        System.out.println(Init.os);
+//        Process.print(systemInformation.getHardwareAbstractionLayer().getProcessor());
+//        Cpu.print(systemInformation.getHardwareAbstractionLayer().getProcessor());
+//        System.out.println(SystemInformation.os);
 
 //        System.setProperty(org.slf4j.impl.SimpleLogger.DEFAULT_LOG_LEVEL_KEY, "INFO");
 //        System.setProperty(org.slf4j.impl.SimpleLogger.LOG_FILE_KEY, "System.err");
@@ -37,14 +30,14 @@ public class Oshi {
 //
 //        LOG.info("Checking computer system...");
 //
-//        LOG.info("Checking Processor...");
+//        LOG.info("Checking Process...");
 //
 //        LOG.info("Checking Memory...");
 //
 //        LOG.info("Checking CPU...");
 //
 //        LOG.info("Checking Processes...");
-//        printProcesses(os, hal.getMemory());
+//        printProcesses2(os, hal.getMemory());
 //
 //        LOG.info("Checking Sensors...");
 //        printSensors(hal.getSensors());
@@ -64,93 +57,17 @@ public class Oshi {
 //        LOG.info("Checking Network parameterss...");
 //        printNetworkParameters(os.getNetworkParams());
 //
-//        // hardware: displays
+//        // information: displays
 //        LOG.info("Checking Displays...");
 //        printDisplays(hal.getDisplays());
 //
-//        // hardware: USB devices
+//        // information: USB devices
 //        LOG.info("Checking USB Devices...");
-//        printUsbDevices(Init.hal.getUsbDevices(true));
+//        printUsbDevices(SystemInformation.hal.getUsbDevices(true));
 //
 //        LOG.info("Checking Sound Cards...");
 //        printSoundCards(hal.getSoundCards());
 
-    }
-
-    private static void printCpu(CentralProcessor processor) {
-        System.out.println("Uptime: " + FormatUtil.formatElapsedSecs(processor.getSystemUptime()));
-        System.out.println(
-                "Context Switches/Interrupts: " + processor.getContextSwitches() + " / " + processor.getInterrupts());
-        long[] prevTicks = processor.getSystemCpuLoadTicks();
-        long[][] prevProcTicks = processor.getProcessorCpuLoadTicks();
-        System.out.println("CPU, IOWait, and IRQ ticks @ 0 sec:" + Arrays.toString(prevTicks));
-        // Wait a second...
-        Util.sleep(1000);
-//        processor.updateAttributes();
-        long[] ticks = processor.getSystemCpuLoadTicks();
-        System.out.println("CPU, IOWait, and IRQ ticks @ 1 sec:" + Arrays.toString(ticks));
-        long user = ticks[TickType.USER.getIndex()] - prevTicks[TickType.USER.getIndex()];
-        long nice = ticks[TickType.NICE.getIndex()] - prevTicks[TickType.NICE.getIndex()];
-        long sys = ticks[TickType.SYSTEM.getIndex()] - prevTicks[TickType.SYSTEM.getIndex()];
-        long idle = ticks[TickType.IDLE.getIndex()] - prevTicks[TickType.IDLE.getIndex()];
-        long iowait = ticks[TickType.IOWAIT.getIndex()] - prevTicks[TickType.IOWAIT.getIndex()];
-        long irq = ticks[TickType.IRQ.getIndex()] - prevTicks[TickType.IRQ.getIndex()];
-        long softirq = ticks[TickType.SOFTIRQ.getIndex()] - prevTicks[TickType.SOFTIRQ.getIndex()];
-        long steal = ticks[TickType.STEAL.getIndex()] - prevTicks[TickType.STEAL.getIndex()];
-        long totalCpu = user + nice + sys + idle + iowait + irq + softirq + steal;
-
-        System.out.format(
-                "User: %.1f%% Nice: %.1f%% System: %.1f%% Idle: %.1f%% IOwait: %.1f%% IRQ: %.1f%% SoftIRQ: %.1f%% Steal: %.1f%%%n",
-                100d * user / totalCpu, 100d * nice / totalCpu, 100d * sys / totalCpu, 100d * idle / totalCpu,
-                100d * iowait / totalCpu, 100d * irq / totalCpu, 100d * softirq / totalCpu, 100d * steal / totalCpu);
-//        System.out.format("CPU load: %.1f%% (counting ticks)%n",
-//                processor.getSystemCpuLoadBetweenTicks(prevTicks) * 100);
-        System.out.format("CPU load: %.1f%% (OS MXBean)%n", processor.getSystemCpuLoad() * 100);
-        double[] loadAverage = processor.getSystemLoadAverage(3);
-        System.out.println("CPU load averages:" + (loadAverage[0] < 0 ? " N/A" : String.format(" %.2f", loadAverage[0]))
-                + (loadAverage[1] < 0 ? " N/A" : String.format(" %.2f", loadAverage[1]))
-                + (loadAverage[2] < 0 ? " N/A" : String.format(" %.2f", loadAverage[2])));
-        // per core CPU
-        StringBuilder procCpu = new StringBuilder("CPU load per processor:");
-//        double[] load = processor.getProcessorCpuLoadBetweenTicks(prevProcTicks);
-//        for (double avg : load) {
-//            procCpu.append(String.format(" %.1f%%", avg * 100));
-//        }
-        System.out.println(procCpu.toString());
-        long freq = processor.getVendorFreq();
-//        if (freq > 0) {
-//            System.out.println("Vendor Frequency: " + FormatUtil.formatHertz(freq));
-//        }
-//        freq = processor.getVendorFreq();
-        if (freq > 0) {
-            System.out.println("Max Frequency: " + FormatUtil.formatHertz(freq));
-        }
-//        long[] freqs = processor.getCurrentFreq();
-//        if (freqs[0] > 0) {
-//            StringBuilder sb = new StringBuilder("Current Frequencies: ");
-//            for (int i = 0; i < freqs.length; i++) {
-//                if (i > 0) {
-//                    sb.append(", ");
-//                }
-//                sb.append(FormatUtil.formatHertz(freqs[i]));
-//            }
-//            System.out.println(sb.toString());
-//        }
-    }
-
-    private static void printProcesses(OperatingSystem os, GlobalMemory memory) {
-        System.out.println("Processes: " + os.getProcessCount() + ", Threads: " + os.getThreadCount());
-        // Sort by highest CPU
-        List<OSProcess> procs = Arrays.asList(os.getProcesses(5, ProcessSort.CPU));
-
-        System.out.println("   PID  %CPU %MEM       VSZ       RSS Name");
-        for (int i = 0; i < procs.size() && i < 5; i++) {
-            OSProcess p = procs.get(i);
-            System.out.format(" %5d %5.1f %4.1f %9s %9s %s%n", p.getProcessID(),
-                    100d * (p.getKernelTime() + p.getUserTime()) / p.getUpTime(),
-                    100d * p.getResidentSetSize() / memory.getTotal(), FormatUtil.formatBytes(p.getVirtualSize()),
-                    FormatUtil.formatBytes(p.getResidentSetSize()), p.getName());
-        }
     }
 
     private static void printSensors(Sensors sensors) {

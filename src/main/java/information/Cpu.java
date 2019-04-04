@@ -1,6 +1,7 @@
-package hardware;
+package information;
 
 import oshi.hardware.CentralProcessor;
+import oshi.hardware.Sensors;
 import oshi.util.FormatUtil;
 import oshi.util.Util;
 
@@ -8,7 +9,15 @@ import java.util.Arrays;
 
 public class Cpu {
 
-    public static void print(CentralProcessor processor) {
+    private CentralProcessor processor;
+    private Sensors sensors;
+
+    public Cpu(CentralProcessor processor, Sensors sensors) {
+        this.processor = processor;
+        this.sensors = sensors;
+    }
+
+    private static void print(CentralProcessor processor) {
 
         long[] prevTicks = processor.getSystemCpuLoadTicks();
         long[] ticks = processor.getSystemCpuLoadTicks();
@@ -59,6 +68,67 @@ public class Cpu {
         if (freq > 0) {
             System.out.println("Max Frequency: " + FormatUtil.formatHertz(freq));
         }
+
+    }
+
+    public String getProcessor() {
+        return processor.toString();
+    }
+
+    public String getPhysicalProcessorCount() {
+        return String.valueOf(processor.getPhysicalProcessorCount());
+    }
+
+    public String getLogicalProcessorCount() {
+        return String.valueOf(processor.getLogicalProcessorCount());
+    }
+
+    public String getProcessorID() {
+        return processor.getProcessorID();
+    }
+
+    public String getIdentifier() {
+        return processor.getIdentifier();
+    }
+
+    public String getFamily() {
+        return processor.getFamily();
+    }
+
+    public String getInterrupts() {
+        Long interrupts = processor.getInterrupts();
+        return interrupts.toString();
+    }
+
+    public String getContextSwitches() {
+        Long contextSwitches = processor.getContextSwitches();
+        return contextSwitches.toString();
+    }
+
+    public String getUpTime() {
+        return FormatUtil.formatElapsedSecs(processor.getSystemUptime());
+    }
+
+    public String getSystemCPULoad() {
+        Double cpuLoad = processor.getSystemCpuLoad() * 100;
+        return cpuLoad.toString();
+    }
+
+    public String getMaxFrequency() {
+        long freq = processor.getVendorFreq();
+        return FormatUtil.formatHertz(freq);
+    }
+
+    public String getCPUTemperature() {
+        return String.valueOf(sensors.getCpuTemperature());
+    }
+
+    public int[] getFansSpeed() {
+        return sensors.getFanSpeeds();
+    }
+
+    public String getCPUVoltage() {
+        return String.valueOf(sensors.getCpuVoltage());
     }
 
 }
