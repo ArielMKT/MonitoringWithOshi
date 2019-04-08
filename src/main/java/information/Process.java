@@ -26,16 +26,16 @@ public class Process {
         return name;
     }
 
-    public String getPID() {
-        return String.valueOf(pid);
+    public int getPID() {
+        return pid;
     }
 
-    public String getPercentageCPU() {
-        return String.valueOf(percentageCPU);
+    public Double getPercentageCPU() {
+        return percentageCPU;
     }
 
-    public String getPercentageMemory() {
-        return String.valueOf(percentageMemory);
+    public Double getPercentageMemory() {
+        return percentageMemory;
     }
 
     public String getVirtualSize() {

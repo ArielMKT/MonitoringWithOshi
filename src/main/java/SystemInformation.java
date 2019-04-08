@@ -3,6 +3,8 @@ import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.software.os.OperatingSystem;
 
+import java.text.DecimalFormat;
+
 public class SystemInformation {
 
     private SystemInfo systemInfo;
@@ -14,6 +16,12 @@ public class SystemInformation {
     private Processes processes;
     private Ram ram;
     private UsbDevices usbDevices;
+
+    public String getCpuUsage(){
+        double us = hardwareAbstractionLayer.getProcessor().getSystemCpuLoad();
+        DecimalFormat deci = new DecimalFormat("0");
+        return deci.format(us * 100) + "% de uso da CPU";
+    }
 
     public SystemInformation() {
         systemInfo = new SystemInfo();

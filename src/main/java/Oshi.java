@@ -11,6 +11,14 @@ public class Oshi {
     public static void main(String[] args){
 
         SystemInformation systemInformation = new SystemInformation();
+        System.out.println(systemInformation.getRam().getMemoryAvailable());
+        Process[] a = systemInformation.getProcesses().getProcesses(20);
+        for(int i = 0; i < a.length; i++) {
+            Process p = a[i];
+            System.out.println(p.getName());
+            System.out.println(p.getPercentageCPU());
+            System.out.println(p.getPercentageMemory());
+        }
 
 //        Process.print(systemInformation.getHardwareAbstractionLayer().getProcessor());
 //        Cpu.print(systemInformation.getHardwareAbstractionLayer().getProcessor());
