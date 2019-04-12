@@ -11,14 +11,30 @@ public class Oshi {
     public static void main(String[] args){
 
         SystemInformation systemInformation = new SystemInformation();
+        System.out.println("Memoria");
         System.out.println(systemInformation.getRam().getMemoryAvailable());
-        Process[] a = systemInformation.getProcesses().getProcesses(20);
-        for(int i = 0; i < a.length; i++) {
-            Process p = a[i];
-            System.out.println(p.getName());
-            System.out.println(p.getPercentageCPU());
-            System.out.println(p.getPercentageMemory());
-        }
+        System.out.println(systemInformation.getRam().getMemoryUseInPercentage());
+        System.out.println(systemInformation.getRam().getTotalMemory());
+
+        System.out.println("Computer System");
+        System.out.println(systemInformation.getComputerSystem().getDescription());
+        System.out.println(systemInformation.getComputerSystem().getManufacturerBaseboard());
+        System.out.println(systemInformation.getComputerSystem().getManufacturerComputerSystem());
+        System.out.println(systemInformation.getComputerSystem().getModelBaseboard());
+        System.out.println(systemInformation.getComputerSystem().getName());
+        System.out.println(systemInformation.getComputerSystem().getManufacturerFirmware());
+        System.out.println(systemInformation.getComputerSystem().getModelComputerSystem());
+        System.out.println(systemInformation.getComputerSystem().getOperatingSystemToString());
+        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
+        System.out.println(systemInformation.getComputerSystem().getSerialNumberBaseboard());
+        System.out.println(systemInformation.getComputerSystem().getSerialNumberComputerSystem());
+        System.out.println(systemInformation.getComputerSystem().getVersionBaseboard());
+        System.out.println(systemInformation.getComputerSystem().getVersionFirmware());
+        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
+        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
+
+        System.out.println("");
+        System.out.println(systemInformation.getCpu().getContextSwitches());
 
 //        Process.print(systemInformation.getHardwareAbstractionLayer().getProcessor());
 //        Cpu.print(systemInformation.getHardwareAbstractionLayer().getProcessor());
