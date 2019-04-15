@@ -1,3 +1,9 @@
+import com.profesorfalken.jsensors.JSensors;
+import com.profesorfalken.jsensors.model.components.Components;
+import com.profesorfalken.jsensors.model.components.Cpu;
+import com.profesorfalken.jsensors.model.components.Gpu;
+import com.profesorfalken.jsensors.model.sensors.Fan;
+import com.profesorfalken.jsensors.model.sensors.Temperature;
 import information.Process;
 import oshi.hardware.*;
 
@@ -5,36 +11,58 @@ import oshi.software.os.*;
 import oshi.util.FormatUtil;
 
 import java.util.Arrays;
+import java.util.List;
+
 
 public class Oshi {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
 
         SystemInformation systemInformation = new SystemInformation();
-        System.out.println("Memoria");
-        System.out.println(systemInformation.getRam().getMemoryAvailable());
-        System.out.println(systemInformation.getRam().getMemoryUseInPercentage());
-        System.out.println(systemInformation.getRam().getTotalMemory());
 
-        System.out.println("Computer System");
-        System.out.println(systemInformation.getComputerSystem().getDescription());
-        System.out.println(systemInformation.getComputerSystem().getManufacturerBaseboard());
-        System.out.println(systemInformation.getComputerSystem().getManufacturerComputerSystem());
-        System.out.println(systemInformation.getComputerSystem().getModelBaseboard());
-        System.out.println(systemInformation.getComputerSystem().getName());
-        System.out.println(systemInformation.getComputerSystem().getManufacturerFirmware());
-        System.out.println(systemInformation.getComputerSystem().getModelComputerSystem());
-        System.out.println(systemInformation.getComputerSystem().getOperatingSystemToString());
-        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
-        System.out.println(systemInformation.getComputerSystem().getSerialNumberBaseboard());
-        System.out.println(systemInformation.getComputerSystem().getSerialNumberComputerSystem());
-        System.out.println(systemInformation.getComputerSystem().getVersionBaseboard());
-        System.out.println(systemInformation.getComputerSystem().getVersionFirmware());
-        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
-        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
+        while(true) {
+            System.out.println("CPU");
+            System.out.println(systemInformation.getCpu().getCPUTemperature());
+            System.out.println("GPU");
+            System.out.println(systemInformation.getGpu().getTemperatureGPU());
+            System.out.println("-------------------------");
+            Thread.sleep(5000);
+        }
 
-        System.out.println("");
-        System.out.println(systemInformation.getCpu().getContextSwitches());
+//        System.out.println("Memoria");
+//        System.out.println(systemInformation.getRam().getMemoryAvailable());
+//        System.out.println(systemInformation.getRam().getMemoryUseInPercentage());
+//        System.out.println(systemInformation.getRam().getTotalMemory());
+//
+//        System.out.println("Computer System");
+//        System.out.println(systemInformation.getComputerSystem().getDescription());
+//        System.out.println(systemInformation.getComputerSystem().getManufacturerBaseboard());
+//        System.out.println(systemInformation.getComputerSystem().getManufacturerComputerSystem());
+//        System.out.println(systemInformation.getComputerSystem().getModelBaseboard());
+//        System.out.println(systemInformation.getComputerSystem().getName());
+//        System.out.println(systemInformation.getComputerSystem().getManufacturerFirmware());
+//        System.out.println(systemInformation.getComputerSystem().getModelComputerSystem());
+//        System.out.println(systemInformation.getComputerSystem().getOperatingSystemToString());
+//        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
+//        System.out.println(systemInformation.getComputerSystem().getSerialNumberBaseboard());
+//        System.out.println(systemInformation.getComputerSystem().getSerialNumberComputerSystem());
+//        System.out.println(systemInformation.getComputerSystem().getVersionBaseboard());
+//        System.out.println(systemInformation.getComputerSystem().getVersionFirmware());
+//        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
+//        System.out.println(systemInformation.getComputerSystem().getReleaseDate());
+//
+//        System.out.println("CPU");
+//        System.out.println(systemInformation.getCpu().getContextSwitches());
+//        System.out.println(systemInformation.getCpu().getCPUTemperature());
+//        System.out.println(systemInformation.getCpu().getCPUVoltage());
+//        System.out.println(systemInformation.getCpu().getFamily());
+//        System.out.println(systemInformation.getCpu().getFansSpeed());
+//        System.out.println(systemInformation.getCpu().getContextSwitches());
+//        System.out.println(systemInformation.getCpu().getIdentifier());
+//        System.out.println(systemInformation.getCpu().getInterrupts());
+//        System.out.println(systemInformation.getCpu().getLogicalProcessorCount());
+//        System.out.println(systemInformation.getCpu().getProcessor());
+//        System.out.println(systemInformation.getCpu().getSystemCPULoad());
 
 //        Process.print(systemInformation.getHardwareAbstractionLayer().getProcessor());
 //        Cpu.print(systemInformation.getHardwareAbstractionLayer().getProcessor());
