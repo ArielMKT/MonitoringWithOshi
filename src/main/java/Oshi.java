@@ -25,6 +25,8 @@ public class Oshi {
             System.out.println(systemInformation.getCpu().getCPUTemperature());
             System.out.println("GPU");
             System.out.println(systemInformation.getGpu().getTemperatureGPU());
+            System.out.println("Core Value");
+            System.out.println(systemInformation.getGpu().getGPUCoreValue());
             System.out.println("-------------------------");
             Thread.sleep(5000);
         }
