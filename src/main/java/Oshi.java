@@ -11,7 +11,6 @@ import oshi.software.os.*;
 import oshi.util.FormatUtil;
 
 import java.util.Arrays;
-import java.util.List;
 
 
 public class Oshi {
@@ -23,25 +22,28 @@ public class Oshi {
         while(true) {
             System.out.println("CPU");
             System.out.println(systemInformation.getCpu().getCPUTemperature());
+            System.out.println("CPU Core Value");
+            System.out.println(systemInformation.getGpu().getTemperatureGPU());
             System.out.println("GPU");
             System.out.println(systemInformation.getGpu().getTemperatureGPU());
-            System.out.println("Core Value");
+            System.out.println("GPU Core Value");
             System.out.println(systemInformation.getGpu().getGPUCoreValue());
+            System.out.println("Memoria");
+            System.out.println("Memoria Disponivel: " + systemInformation.getRam().getMemoryAvailable());
+            System.out.println("Memoria Total: " + systemInformation.getRam().getTotalMemory());
+            System.out.println("Uso Memória em porcentagem: " + systemInformation.getRam().getMemoryUseInPercentage());
+            System.out.println("Computer System");
+            System.out.println(systemInformation.getComputerSystem().getDescription());
+            System.out.println(systemInformation.getComputerSystem().getManufacturerBaseboard());
+            System.out.println(systemInformation.getComputerSystem().getManufacturerComputerSystem());
+            System.out.println(systemInformation.getComputerSystem().getModelBaseboard());
             System.out.println("-------------------------");
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         }
 
-//        System.out.println("Memoria");
-//        System.out.println(systemInformation.getRam().getMemoryAvailable());
-//        System.out.println(systemInformation.getRam().getMemoryUseInPercentage());
-//        System.out.println(systemInformation.getRam().getTotalMemory());
+
 //
-//        System.out.println("Computer System");
-//        System.out.println(systemInformation.getComputerSystem().getDescription());
-//        System.out.println(systemInformation.getComputerSystem().getManufacturerBaseboard());
-//        System.out.println(systemInformation.getComputerSystem().getManufacturerComputerSystem());
-//        System.out.println(systemInformation.getComputerSystem().getModelBaseboard());
-//        System.out.println(systemInformation.getComputerSystem().getName());
+
 //        System.out.println(systemInformation.getComputerSystem().getManufacturerFirmware());
 //        System.out.println(systemInformation.getComputerSystem().getModelComputerSystem());
 //        System.out.println(systemInformation.getComputerSystem().getOperatingSystemToString());

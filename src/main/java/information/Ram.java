@@ -22,9 +22,9 @@ public class Ram {
     }
 
     public String getMemoryUseInPercentage() {
-        Long available = globalMemory.getAvailable();
+        Long inUse = globalMemory.getTotal() - globalMemory.getAvailable();
         Long total = globalMemory.getTotal();
-        Double percentage = (available.doubleValue()/total)*100;
+        Double percentage = (inUse.doubleValue()/total)*100;
         return String.valueOf(percentage.intValue());
     }
 }

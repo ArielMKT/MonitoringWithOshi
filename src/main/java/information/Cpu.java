@@ -3,6 +3,7 @@ package information;
 import com.profesorfalken.jsensors.JSensors;
 import com.profesorfalken.jsensors.model.components.Components;
 import com.profesorfalken.jsensors.model.sensors.Fan;
+import com.profesorfalken.jsensors.model.sensors.Load;
 import com.profesorfalken.jsensors.model.sensors.Temperature;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.Sensors;
@@ -43,6 +44,29 @@ public class Cpu {
         totalTemp /= quantCPU;
 
         return String.valueOf(totalTemp);
+    }
+
+    public String getCPULoadCore() {
+        List<com.profesorfalken.jsensors.model.components.Cpu> cpus = JSensors.get.components().cpus;
+        if(cpus.isEmpty())
+            return "Not Available";
+
+        Double totalCPULoad = 0.0;
+        Double quantCPU = 0.0;
+
+        for (final com.profesorfalken.jsensors.model.components.Cpu cpu : cpus) {
+            if(cpu.sensors != null) {
+                List<Load> loads = cpu.sensors.loads;
+                for (final Load load : loads) {
+                    totalCPULoad += load.value;
+                    quantCPU++;
+                }
+            }
+        }
+
+        totalCPULoad /= quantCPU;
+
+        return String.valueOf(totalCPULoad);
     }
 
     public String getProcessor() {
