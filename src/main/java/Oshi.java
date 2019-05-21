@@ -26,9 +26,9 @@ public class Oshi {
 //        Logger LOG = LoggerFactory.getLogger(Oshi.class);
 //
 //        LOG.info("Initializing System...");
-//        SystemInfo si = new SystemInfo();
+        SystemInfo si = new SystemInfo();
 //
-//        HardwareAbstractionLayer hal = si.getHardware();
+        HardwareAbstractionLayer hal = si.getHardware();
 //        OperatingSystem os = si.getOperatingSystem();
 //
 //        System.out.println(os);
@@ -57,7 +57,7 @@ public class Oshi {
 //        printFileSystem(os.getFileSystem());
 //
 //        LOG.info("Checking Network interfaces...");
-//        printNetworkInterfaces(hal.getNetworkIFs());
+        printNetworkInterfaces(hal.getNetworkIFs());
 //
 //        LOG.info("Checking Network parameterss...");
 //        printNetworkParameters(os.getNetworkParams());
